@@ -52,20 +52,12 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
                 task:
                   type: string
                 done:
                   type: boolean
                 due_by:
                   type: date
-                created_at:
-                  type: datetime
-                updated_at:
-                  type: datetime
-                url:
-                  type: string
               required:
               - task
               - done
@@ -153,4 +145,4 @@ servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example-todo.com
+      default: open-api-swagger.herokuapp.com
