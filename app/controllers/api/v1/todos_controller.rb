@@ -1,10 +1,14 @@
 class Api::V1::TodosController < ApplicationController
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
+  TodoReducer = Rack::Reducer.new(
+    Api::V1::Todo.all,
+    ->(done:) { where(done: done.downcase) },
+  )
   # GET /api/v1/todos
   # GET /api/v1/todos.json
   def index
-    @api_v1_todos = Api::V1::Todo.all
+    @api_v1_todos = TodoReducer.apply(params)
   end
 
   # GET /api/v1/todos/1

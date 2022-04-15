@@ -29,6 +29,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rswag-ui'
 gem 'rswag-api'
 
+gem 'rack-reducer', require: 'rack/reducer'
+
 group :development, :production do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pg', '~> 1.1'

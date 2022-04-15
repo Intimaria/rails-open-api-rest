@@ -166,6 +166,41 @@ paths:
                 task: Water plants
                 done: false
                 due_by: '2022-04-15'
+    patch:
+      summary: Updates a todo
+      tags:
+      - Todo
+      description: Updates a specific todo by id
+      operationId: patchTodo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              example:
+                done: false
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                done:
+                  type: boolean
+                due_by:
+                  type: date
+              example:
+                done: true
     delete:
       summary: Deletes a todo
       tags:
@@ -181,6 +216,50 @@ paths:
       responses:
         '204':
           description: success
+  "/api/v1/todos?done={done}":
+    get:
+      summary: Lists completed or pending todos
+      tags:
+      - Todo
+      description: Lists completed or pending todos
+      parameters:
+      - name: done
+        in: path
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    task:
+                      type: string
+                    done:
+                      type: boolean
+                    due_by:
+                      type: date
+                    created_at:
+                      type: datetime
+                    updated_at:
+                      type: datetime
+                    url:
+                      type: string
+                  example:
+                    id: 1
+                    task: Water plants
+                    done: true
+                    due_by: '2022-04-15'
+                    created_at: '2022-04-15'
+                    updated_at: '2022-04-15'
+                    url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
 servers:
 - url: https://{defaultHost}
   variables:
