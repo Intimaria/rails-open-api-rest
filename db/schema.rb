@@ -23,12 +23,4 @@ ActiveRecord::Schema.define(version: 2022_04_14_231749) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "todos", force: :cascade do |t|
-    t.string "task"
-    t.boolean "done"
-    t.date "due_by"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
 end

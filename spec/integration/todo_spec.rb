@@ -25,7 +25,40 @@ path '/api/v1/todos' do
            }
            run_test!
         end
+      end
+
+      post 'Creates a todo' do
+        tags 'Todo'
+        description 'Creates a new todo from provided data'
+        operationId 'createTodo'
+        consumes 'application/json'
+        produces 'application/json'
+        parameter name: :api_v1_todo, in: :body, schema: {
+            type: :object,
+            properties: {
+                id: { type: :integer },
+                task: { type: :string },
+                done: { type: :boolean},
+                due_by: { type: :date},
+                created_at: { type: :datetime},
+                updated_at: { type: :datetime},
+                url: { type: :string }
+             },
+          required: [ 'task', 'done', 'due_by' ]
+        }
   
+        let(:api_v1_todo) {  { api_v1_todo: { task: 'foo', done: false, due_by: Date.today } } }
+  
+        response '201', 'success' do
+          run_test!
+        end
+  
+        # response '422', 'invalid request' do
+        #   let(:api_v1_todo) { { done: false } }
+        #   run_test! do |response|
+        #     expect(response.body).to include("can't be blank")
+        #   end
+        # end
       end
     end
 
@@ -57,7 +90,7 @@ path '/api/v1/todos' do
 
                let(:id) { api_v1_todo.id }
                run_test!
-               
+
                response '404', 'not found' do
                 let(:id) { 'invalid' }
                 run_test!
