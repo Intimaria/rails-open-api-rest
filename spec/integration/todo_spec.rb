@@ -116,12 +116,22 @@ path '/api/v1/todos' do
                 let(:api_v1_todo) { {api_v1_todo: { done: false} }} 
                 run_test!
             end
-        
-        
+          end 
+
+
+          delete 'Deletes a todo' do
+            tags 'Todo'
+            description 'Deletes a specific todo by id'
+            operationId 'deleteTodo'
+            produces 'application/json'
+            parameter name: :id, in: :path, type: :integer
+
+            response '204', 'success' do
+                let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
+                run_test!
+            end
           end 
      end
-
-
   end
 
 
