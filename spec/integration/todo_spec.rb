@@ -73,7 +73,6 @@ path '/api/v1/todos' do
             produces 'application/json'
 
             response '200', 'success' do
-    
               schema type: :object,
                  properties: {
                    id: { type: :integer },
@@ -85,7 +84,6 @@ path '/api/v1/todos' do
                    url: { type: :string }
                  }
                
-
                let(:id) { api_v1_todo.id }
                run_test!
 
@@ -95,7 +93,35 @@ path '/api/v1/todos' do
               end
             end
           end
-        end
+        
+        
+          put 'Updates a todo' do
+            tags 'Todo'
+            description 'Updates a specific todo by id'
+            operationId 'updateTodo'
+            consumes 'application/json'
+            produces 'application/json'
+            parameter name: :id, in: :path, type: :integer
+            parameter name: :api_v1_todo, in: :body, schema: {
+                type: :object,
+                properties: {
+                    task: { type: :string },
+                    done: { type: :boolean},
+                    due_by: { type: :date},
+                 }
+            }
+
+            response '200', 'success' do
+                let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
+                let(:api_v1_todo) { {api_v1_todo: { done: false} }} 
+                run_test!
+            end
+        
+        
+          end 
+     end
+
+
   end
 
 
