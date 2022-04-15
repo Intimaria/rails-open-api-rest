@@ -9,7 +9,6 @@ path '/api/v1/todos' do
         description 'Lists todo'
         produces 'application/json'
         response '200', 'success' do
-
           schema type: :array,
            items: {
              type: :object,
@@ -21,7 +20,15 @@ path '/api/v1/todos' do
                 created_at: { type: :datetime},
                 updated_at: { type: :datetime},
                 url: { type: :string }
-             }
+             }, example: {
+                id: 1,
+                task: 'Water plants',
+                done: false,
+                due_by: Date.today,
+                created_at: Date.today,
+                updated_at: Date.today,
+                url: "https://open-api-swagger.herokuapp.com/api/v1/todos/1.json"
+            }
            }
            run_test!
         end
@@ -37,15 +44,24 @@ path '/api/v1/todos' do
             type: :object,
             properties: {
                 task: { type: :string },
-                done: { type: :boolean},
-                due_by: { type: :date},
-             },
+                done: { type: :boolean, nullable: true},
+                due_by: { type: :date, nullable: true},
+             }, example: {
+                task: 'Water plants',
+                done: false,
+                due_by: Date.today,
+            },
           required: [ 'task', 'done', 'due_by' ]
         }
   
-        let(:api_v1_todo) {  { api_v1_todo: { task: 'foo', done: false, due_by: Date.today } } }
+        let(:api_v1_todo) {  { api_v1_todo: { task: 'foo', done: nil, due_by: Date.today } } }
   
         response '201', 'success' do
+            examples 'application/json' => {
+                task: 'Water plants',
+                done: false,
+                due_by: Date.today,
+            }
           run_test!
         end
   
@@ -79,7 +95,16 @@ path '/api/v1/todos' do
                    updated_at: { type: :datetime},
                    url: { type: :string }
                  }
-               
+                 examples 'application/json' => {
+                    id: 1,
+                    task: 'Water plants',
+                    done: false,
+                    due_by: Date.today,
+                    created_at: Date.today,
+                    updated_at: Date.today,
+                    url: "https://open-api-swagger.herokuapp.com/api/v1/todos/1.json"
+                }
+
                let(:id) { api_v1_todo.id }
                run_test!
 
@@ -104,14 +129,27 @@ path '/api/v1/todos' do
                     task: { type: :string },
                     done: { type: :boolean},
                     due_by: { type: :date},
-                 }
+                 }, example: {
+                    task: 'Water plants',
+                    done: false,
+                    due_by: Date.today,
+                }
             }
 
             response '200', 'success' do
+                examples 'application/json' => {
+                    task: 'Water plants',
+                    done: false,
+                    due_by: Date.today,
+                }
                 let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
-                let(:api_v1_todo) { {api_v1_todo: { done: false} }} 
+                let(:api_v1_todo) { {api_v1_todo: { done: false} } } 
                 run_test!
             end
+            response '422', 'invalid request' do
+                let(:api_v1_todo) {{ api_v1_todo: {  } } }
+                run_test! 
+              end
           end 
 
 

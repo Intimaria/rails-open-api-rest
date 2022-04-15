@@ -34,6 +34,14 @@ paths:
                       type: datetime
                     url:
                       type: string
+                  example:
+                    id: 1
+                    task: Water plants
+                    done: false
+                    due_by: '2022-04-15'
+                    created_at: '2022-04-15'
+                    updated_at: '2022-04-15'
+                    url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
     post:
       summary: Creates a todo
       tags:
@@ -44,6 +52,12 @@ paths:
       responses:
         '201':
           description: success
+          content:
+            application/json:
+              example:
+                task: Water plants
+                done: false
+                due_by: '2022-04-15'
         '422':
           description: invalid request
       requestBody:
@@ -56,8 +70,14 @@ paths:
                   type: string
                 done:
                   type: boolean
+                  nullable: true
                 due_by:
                   type: date
+                  nullable: true
+              example:
+                task: Water plants
+                done: false
+                due_by: '2022-04-15'
               required:
               - task
               - done
@@ -82,6 +102,14 @@ paths:
           description: success
           content:
             application/json:
+              example:
+                id: 1
+                task: Water plants
+                done: false
+                due_by: '2022-04-15'
+                created_at: '2022-04-15'
+                updated_at: '2022-04-15'
+                url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
               schema:
                 type: object
                 properties:
@@ -114,6 +142,14 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              example:
+                task: Water plants
+                done: false
+                due_by: '2022-04-15'
+        '422':
+          description: invalid request
       requestBody:
         content:
           application/json:
@@ -126,6 +162,10 @@ paths:
                   type: boolean
                 due_by:
                   type: date
+              example:
+                task: Water plants
+                done: false
+                due_by: '2022-04-15'
     delete:
       summary: Deletes a todo
       tags:
