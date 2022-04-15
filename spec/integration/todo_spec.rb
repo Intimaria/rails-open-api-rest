@@ -53,12 +53,10 @@ path '/api/v1/todos' do
           run_test!
         end
   
-        # response '422', 'invalid request' do
-        #   let(:api_v1_todo) { { done: false } }
-        #   run_test! do |response|
-        #     expect(response.body).to include("can't be blank")
-        #   end
-        # end
+        response '422', 'invalid request' do
+          let(:api_v1_todo) {{ api_v1_todo: {  } } }
+          run_test! 
+        end
       end
     end
 
