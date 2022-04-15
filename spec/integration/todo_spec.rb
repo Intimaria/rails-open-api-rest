@@ -36,13 +36,9 @@ path '/api/v1/todos' do
         parameter name: :api_v1_todo, in: :body, schema: {
             type: :object,
             properties: {
-                id: { type: :integer },
                 task: { type: :string },
                 done: { type: :boolean},
                 due_by: { type: :date},
-                created_at: { type: :datetime},
-                updated_at: { type: :datetime},
-                url: { type: :string }
              },
           required: [ 'task', 'done', 'due_by' ]
         }

@@ -1,0 +1,156 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/todos":
+    get:
+      summary: Lists todos
+      tags:
+      - Todo
+      description: Lists todo
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    task:
+                      type: string
+                    done:
+                      type: boolean
+                    due_by:
+                      type: date
+                    created_at:
+                      type: datetime
+                    updated_at:
+                      type: datetime
+                    url:
+                      type: string
+    post:
+      summary: Creates a todo
+      tags:
+      - Todo
+      description: Creates a new todo from provided data
+      operationId: createTodo
+      parameters: []
+      responses:
+        '201':
+          description: success
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                task:
+                  type: string
+                done:
+                  type: boolean
+                due_by:
+                  type: date
+                created_at:
+                  type: datetime
+                updated_at:
+                  type: datetime
+                url:
+                  type: string
+              required:
+              - task
+              - done
+              - due_by
+  "/api/v1/todos/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieves a todo
+      tags:
+      - Todo
+      description: Retrieves a specific todo by id
+      operationId: getTodo
+      responses:
+        '404':
+          description: not found
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  task:
+                    type: string
+                  done:
+                    type: boolean
+                  due_by:
+                    type: date
+                  created_at:
+                    type: datetime
+                  updated_at:
+                    type: datetime
+                  url:
+                    type: string
+    put:
+      summary: Updates a todo
+      tags:
+      - Todo
+      description: Updates a specific todo by id
+      operationId: updateTodo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                done:
+                  type: boolean
+                due_by:
+                  type: date
+    delete:
+      summary: Deletes a todo
+      tags:
+      - Todo
+      description: Deletes a specific todo by id
+      operationId: deleteTodo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: success
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example-todo.com
