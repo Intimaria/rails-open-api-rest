@@ -4,7 +4,4 @@ class Api::V1::Todo < ApplicationRecord
 
     alias_attribute :todo, :task
     alias_attribute :completed, :done
-
-    scope :pending, -> { where(done: false) }
-    scope :completed, -> { where(done: true) }
 end
