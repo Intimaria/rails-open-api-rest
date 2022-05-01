@@ -6,18 +6,16 @@ class Api::V1::TodosController < ApplicationController
     Api::V1::Todo.all,
     ->(done:) { where(done: done.downcase) },
   )
-  # GET /api/v1/todos
+
   # GET /api/v1/todos.json
   def index
     @api_v1_todos = TodoReducer.apply(params)
   end
 
-  # GET /api/v1/todos/1
   # GET /api/v1/todos/1.json
   def show
   end
 
-  # POST /api/v1/todos
   # POST /api/v1/todos.json
   def create
     @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params)
@@ -29,7 +27,6 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/v1/todos/1
   # PATCH/PUT /api/v1/todos/1.json
   def update
     if @api_v1_todo.update(api_v1_todo_params)
@@ -39,7 +36,6 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  # DELETE /api/v1/todos/1
   # DELETE /api/v1/todos/1.json
   def destroy
     @api_v1_todo.destroy
