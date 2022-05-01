@@ -1,4 +1,5 @@
 class Api::V1::TodosController < ApplicationController
+  before_action :authorize!, except: %i[index]
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
   TodoReducer = Rack::Reducer.new(

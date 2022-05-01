@@ -1,0 +1,3 @@
+development:
+  issuerUri: <%= Rails.application.credentials.env[:AUTH0_DOMAIN] %>
+  audience: <%= Rails.application.credentials.env[:AUTH0_AUDIENCE] %>
