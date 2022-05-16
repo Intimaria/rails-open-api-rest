@@ -38,9 +38,9 @@ paths:
                     id: 1
                     task: Water plants
                     done: false
-                    due_by: '2022-05-15'
-                    created_at: '2022-05-15'
-                    updated_at: '2022-05-15'
+                    due_by: '2022-05-16'
+                    created_at: '2022-05-16'
+                    updated_at: '2022-05-16'
                     url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
     post:
       summary: Creates a todo
@@ -63,14 +63,14 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
         '422':
           description: invalid request
           content:
             application/json:
               example:
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
         '401':
           description: unauthorized request
           content:
@@ -78,7 +78,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
       requestBody:
         content:
           application/json:
@@ -96,7 +96,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
               required:
               - task
               - done
@@ -125,9 +125,9 @@ paths:
                 id: 1
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
-                created_at: '2022-05-15'
-                updated_at: '2022-05-15'
+                due_by: '2022-05-16'
+                created_at: '2022-05-16'
+                updated_at: '2022-05-16'
                 url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
               schema:
                 type: object
@@ -172,7 +172,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
         '422':
           description: invalid request
         '401':
@@ -192,7 +192,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-05-15'
+                due_by: '2022-05-16'
     patch:
       summary: Updates a todo
       tags:
@@ -297,9 +297,9 @@ paths:
                     id: 1
                     task: Water plants
                     done: true
-                    due_by: '2022-05-15'
-                    created_at: '2022-05-15'
-                    updated_at: '2022-05-15'
+                    due_by: '2022-05-16'
+                    created_at: '2022-05-16'
+                    updated_at: '2022-05-16'
                     url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
 servers:
 - url: https://{defaultHost}
