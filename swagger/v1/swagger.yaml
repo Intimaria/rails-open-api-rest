@@ -152,7 +152,13 @@ paths:
       - Todo
       description: Updates a specific todo by id
       operationId: updateTodo
+      security:
+      - JWT: {}
       parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       - name: id
         in: path
         required: true
@@ -169,6 +175,8 @@ paths:
                 due_by: '2022-05-15'
         '422':
           description: invalid request
+        '401':
+          description: unauthorized request
       requestBody:
         content:
           application/json:
@@ -191,7 +199,13 @@ paths:
       - Todo
       description: Updates a specific todo by id
       operationId: patchTodo
+      security:
+      - JWT: {}
       parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       - name: id
         in: path
         required: true
@@ -206,6 +220,8 @@ paths:
                 done: false
         '422':
           description: invalid request
+        '401':
+          description: unauthorized request
       requestBody:
         content:
           application/json:
@@ -226,7 +242,13 @@ paths:
       - Todo
       description: Deletes a specific todo by id
       operationId: deleteTodo
+      security:
+      - JWT: {}
       parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       - name: id
         in: path
         required: true

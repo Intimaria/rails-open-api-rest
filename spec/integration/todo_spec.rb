@@ -170,6 +170,8 @@ path '/api/v1/todos' do
             operationId 'updateTodo'
             consumes 'application/json'
             produces 'application/json'
+            security [JWT: {}]
+            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
             parameter name: :api_v1_todo, in: :body, schema: {
                 type: :object,
@@ -185,6 +187,7 @@ path '/api/v1/todos' do
             }
 
             response '200', 'success' do
+              let(:'Authorization') {"#{GenerateToken.test_token}"}
                 examples 'application/json' => {
                     task: 'Water plants',
                     done: false,
@@ -195,9 +198,16 @@ path '/api/v1/todos' do
                 run_test!
             end
             response '422', 'invalid request' do
+              let(:'Authorization') {"#{GenerateToken.test_token}"}
                 let(:api_v1_todo) {{ api_v1_todo: {  } } }
                 run_test! 
               end
+            response '401', 'unauthorized request' do
+              let(:'Authorization') {"#{nil}"}
+              let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
+              let(:api_v1_todo) { {api_v1_todo: { done: false} } } 
+              run_test!
+            end
           end 
 
           patch 'Updates a todo' do
@@ -206,6 +216,8 @@ path '/api/v1/todos' do
             operationId 'patchTodo'
             consumes 'application/json'
             produces 'application/json'
+            security [JWT: {}]
+            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
             parameter name: :api_v1_todo, in: :body, schema: {
                 type: :object,
@@ -219,6 +231,7 @@ path '/api/v1/todos' do
             }
 
             response '200', 'success' do
+              let(:'Authorization') {"#{GenerateToken.test_token}"}
                 examples 'application/json' => {
                     done: false,
                 }
@@ -227,8 +240,15 @@ path '/api/v1/todos' do
                 run_test!
             end
             response '422', 'invalid request' do
+              let(:'Authorization') {"#{GenerateToken.test_token}"}
                 let(:api_v1_todo) {{ api_v1_todo: {  } } }
                 run_test! 
+              end
+              response '401', 'unauthorized request' do
+                let(:'Authorization') {"#{nil}"}
+                let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
+                let(:api_v1_todo) { {api_v1_todo: { done: false} } } 
+                run_test!
               end
           end
 
@@ -238,9 +258,12 @@ path '/api/v1/todos' do
             description 'Deletes a specific todo by id'
             operationId 'deleteTodo'
             produces 'application/json'
+            security [JWT: {}]
+            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
 
             response '204', 'success' do
+                let(:'Authorization') {"#{GenerateToken.test_token}"}
                 let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
                 run_test!
             end
