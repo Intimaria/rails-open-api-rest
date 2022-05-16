@@ -1,4 +1,5 @@
 require 'swagger_helper'
+require 'generate_token'
 
 RSpec.describe '../integration/api/v1/todos', type: :request do
 
@@ -70,6 +71,8 @@ path '/api/v1/todos' do
         operationId 'createTodo'
         consumes 'application/json'
         produces 'application/json'
+        security [JWT: {}]
+        parameter name: 'Authorization', in: :header, type: :string
         parameter name: :api_v1_todo, in: :body, schema: {
             type: :object,
             properties: {
@@ -87,6 +90,7 @@ path '/api/v1/todos' do
         let(:api_v1_todo) {  { api_v1_todo: { task: 'foo', done: nil, due_by: Date.today } } }
   
         response '201', 'success' do
+           let(:'Authorization') {"#{GenerateToken.test_token}"}
             examples 'application/json' => {
                 task: 'Water plants',
                 done: false,
@@ -97,7 +101,21 @@ path '/api/v1/todos' do
   
         response '422', 'invalid request' do
           let(:api_v1_todo) {{ api_v1_todo: {  } } }
+          examples 'application/json' => {
+            done: false,
+            due_by: Date.today,
+        }
           run_test! 
+        end
+
+        response '401', 'unauthorized request' do
+          let(:'Authorization') {"#{nil}"}
+          examples 'application/json' => {
+              task: 'Water plants',
+              done: false,
+              due_by: Date.today,
+          }
+          run_test!
         end
       end
     end

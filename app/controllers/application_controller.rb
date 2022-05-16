@@ -1,16 +1,16 @@
-require 'json_web_token'
+# require 'json_web_token'
 
 class ApplicationController < ActionController::API
     respond_to? :json
 
-    #authorization 
-    def authorize!
-      valid, result = verify(raw_token(request.headers))
+    # #authorization 
+    # def authorize!
+    #   valid, result = verify(raw_token(request.headers))
   
-      render json: { message: result }.to_json, status: :unauthorized unless valid
+    #   render json: { message: result }.to_json, status: :unauthorized unless valid
 
-      @token ||= result
-    end
+    #   @token ||= result
+    # end
   
     #errors 
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
@@ -19,19 +19,19 @@ class ApplicationController < ActionController::API
 
     private
 
-    #authorization 
-    def verify(token)
-      payload, = JsonWebToken.verify(token)
-      [true, payload]
-    rescue JWT::DecodeError => e
-      [false, e]
-    end
+    # #authorization 
+    # def verify(token)
+    #   payload, = JsonWebToken.verify(token)
+    #   [true, payload]
+    # rescue JWT::DecodeError => e
+    #   [false, e]
+    # end
   
-    def raw_token(headers)
-      return headers['Authorization'].split.last if headers['Authorization'].present?
+    # def raw_token(headers)
+    #   return headers['Authorization'].split.last if headers['Authorization'].present?
   
-      nil
-    end
+    #   nil
+    # end
 
     #errors 
     def record_not_found(error)

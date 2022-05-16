@@ -38,9 +38,9 @@ paths:
                     id: 1
                     task: Water plants
                     done: false
-                    due_by: '2022-04-15'
-                    created_at: '2022-04-15'
-                    updated_at: '2022-04-15'
+                    due_by: '2022-05-15'
+                    created_at: '2022-05-15'
+                    updated_at: '2022-05-15'
                     url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
     post:
       summary: Creates a todo
@@ -48,7 +48,13 @@ paths:
       - Todo
       description: Creates a new todo from provided data
       operationId: createTodo
-      parameters: []
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '201':
           description: success
@@ -57,9 +63,22 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-04-15'
+                due_by: '2022-05-15'
         '422':
           description: invalid request
+          content:
+            application/json:
+              example:
+                done: false
+                due_by: '2022-05-15'
+        '401':
+          description: unauthorized request
+          content:
+            application/json:
+              example:
+                task: Water plants
+                done: false
+                due_by: '2022-05-15'
       requestBody:
         content:
           application/json:
@@ -77,7 +96,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-04-15'
+                due_by: '2022-05-15'
               required:
               - task
               - done
@@ -106,9 +125,9 @@ paths:
                 id: 1
                 task: Water plants
                 done: false
-                due_by: '2022-04-15'
-                created_at: '2022-04-15'
-                updated_at: '2022-04-15'
+                due_by: '2022-05-15'
+                created_at: '2022-05-15'
+                updated_at: '2022-05-15'
                 url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
               schema:
                 type: object
@@ -147,7 +166,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-04-15'
+                due_by: '2022-05-15'
         '422':
           description: invalid request
       requestBody:
@@ -165,7 +184,7 @@ paths:
               example:
                 task: Water plants
                 done: false
-                due_by: '2022-04-15'
+                due_by: '2022-05-15'
     patch:
       summary: Updates a todo
       tags:
@@ -256,20 +275,18 @@ paths:
                     id: 1
                     task: Water plants
                     done: true
-                    due_by: '2022-04-15'
-                    created_at: '2022-04-15'
-                    updated_at: '2022-04-15'
+                    due_by: '2022-05-15'
+                    created_at: '2022-05-15'
+                    updated_at: '2022-05-15'
                     url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
       default: open-api-swagger.herokuapp.com
-components:
-  securitySchemes:
-    bearerAuth:            
-      type: http
-      scheme: bearer
-      bearerFormat: JWT    
-security:
-  - bearerAuth: [] 
+securityDefinitions:
+  JWT:
+    description: A jwt for API authorization
+    type: apiKey
+    name: Authorization
+    in: header
