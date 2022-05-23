@@ -37,8 +37,5 @@ module Promo
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    auth0 = YAML.load(ERB.new(File.read("#{Rails.root}/config/auth0.yml")).result)
-    auth0.merge! auth0.fetch(Rails.env, {})
-    auth0.symbolize_keys!
   end
 end

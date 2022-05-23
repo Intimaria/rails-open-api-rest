@@ -7,7 +7,7 @@ class JsonWebToken
       JWT.decode(token, nil,
                  true, # Verify the signature of this token
                  algorithm: algorithm,
-                 iss: "#{domain}",
+                 iss: ["#{issuer}", "#{domain}"],
                  verify_iss: true,
                  aud:"#{audience}",
                  verify_aud: true) do |header|
@@ -25,6 +25,7 @@ class JsonWebToken
 
     def jwks_hash
       jwks_raw = Net::HTTP.get URI("#{issuer}.well-known/jwks.json")
+      puts(jwks_raw)
       jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
       jwks_keys.map do |k|
         [
@@ -38,10 +39,10 @@ class JsonWebToken
       "https://#{domain}/"
     end
     def audience
-      "#{config['audience']}"
+      "#{config[:audience]}"
     end
     def domain
-      "#{config['issuerUri']}"
+      "#{config[:issuerUri]}"
     end
 
     def config 
