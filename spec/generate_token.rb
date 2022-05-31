@@ -14,7 +14,7 @@ class GenerateToken
 
       request = Net::HTTP::Post.new(url)
       request["content-type"] = 'application/json'
-      request.body = "{\"client_id\":\"rywe364iEJrFe0KPMOgUoZ77yBL45IKO\",\"client_secret\":\"6TtoaRlA80ZAjqKTIEoI9ek0UiAV80OjSmqhOM_6n4QsS-Vi0Wwen8qLj3c4TSyu\",\"audience\":\"https://open-api-swagger.herokuapp.com/api/v1/todos\",\"grant_type\":\"client_credentials\"}"
+      request.body = "{\"client_id\":\"#{config[:client_id]}\",\"client_secret\":\"#{config[:client_secret]}\",\"audience\":\"#{config[:audience]}\",\"grant_type\":\"client_credentials\"}"
 
       response = http.request(request)
       response.read_body 

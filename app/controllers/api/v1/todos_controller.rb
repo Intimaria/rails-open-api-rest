@@ -1,7 +1,7 @@
 class Api::V1::TodosController < ApplicationController
   include Secured 
 
-  skip_before_action :authenticate_request!, only: [:index ]
+  skip_before_action :authenticate_request!, only: [:index, :show ]
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
   TodoReducer = Rack::Reducer.new(
