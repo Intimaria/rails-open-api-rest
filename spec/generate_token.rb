@@ -6,7 +6,7 @@ require 'net/http'
 class GenerateToken
   class << self
     def test_token
-      url = URI("https://dev-lmzlz5ay.us.auth0.com/oauth/token")
+      url = URI(config[:audience])
 
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
@@ -19,5 +19,9 @@ class GenerateToken
       response = http.request(request)
       response.read_body 
     end
+
+    def config 
+      Auth0.config
+    end 
   end
 end

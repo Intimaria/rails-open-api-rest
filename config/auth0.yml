@@ -1,3 +1,5 @@
 
 issuerUri:  <%= ENV['AUTH0_DOMAIN'] %>
 audience: <%= ENV['AUTH0_AUDIENCE'] %>
+client_id: <%= ENV['client_id'] %>
+client_secret: <%= ENV['client_secret'] %>

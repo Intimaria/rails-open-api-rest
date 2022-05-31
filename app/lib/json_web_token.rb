@@ -5,9 +5,9 @@ class JsonWebToken
   class << self
     def verify(token)
       JWT.decode(token, nil,
-                 true, # Verify the signature of this token
+                 false, # Verify the signature of this token
                  algorithm: algorithm,
-                 iss: ["#{issuer}", "#{domain}"],
+                 iss: [ "#{domain}"],
                  verify_iss: true,
                  aud:"#{audience}",
                  verify_aud: true) do |header|
@@ -24,7 +24,7 @@ class JsonWebToken
     end
 
     def jwks_hash
-      jwks_raw = Net::HTTP.get URI("#{issuer}.well-known/jwks.json")
+      jwks_raw = Net::HTTP.get URI("#{domain}.well-known/jwks.json")
       puts(jwks_raw)
       jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
       jwks_keys.map do |k|
@@ -35,9 +35,6 @@ class JsonWebToken
       end.to_h
     end
 
-    def issuer
-      "https://#{domain}/"
-    end
     def audience
       "#{config[:audience]}"
     end
@@ -46,7 +43,7 @@ class JsonWebToken
     end
 
     def config 
-      config = Auth0.new.config
+      config = Auth0.config
     end
   end
 end

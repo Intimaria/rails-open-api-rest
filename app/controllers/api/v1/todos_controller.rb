@@ -1,5 +1,7 @@
-class Api::V1::TodosController < SecuredController
-  skip_before_action :authorize_request, only: [:index, :show]
+class Api::V1::TodosController < ApplicationController
+  include Secured 
+
+  skip_before_action :authenticate_request!, only: [:index ]
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
   TodoReducer = Rack::Reducer.new(
@@ -9,6 +11,8 @@ class Api::V1::TodosController < SecuredController
 
   # GET /api/v1/todos.json
   def index
+    logger.info request.env
+
     @api_v1_todos = TodoReducer.apply(params)
   end
 
