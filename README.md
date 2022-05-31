@@ -1,5 +1,10 @@
 # README
 
+API:
+https://open-api-swagger.herokuapp.com/api/v1/todos 
+
+OPEN API DOCS:
+https://open-api-swagger.herokuapp.com/api/v1/todos/api-docs
 
 ### Ruby & Rails version
   * 2.7.4
