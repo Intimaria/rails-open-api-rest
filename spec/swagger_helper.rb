@@ -27,7 +27,7 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'https://open-api-swagger.herokuapp.com',
           variables: {
             defaultHost: {
               default: 'open-api-swagger.herokuapp.com'

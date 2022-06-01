@@ -27,11 +27,11 @@ paths:
                     done:
                       type: boolean
                     due_by:
-                      type: date
+                      type: string
                     created_at:
-                      type: datetime
+                      type: string
                     updated_at:
-                      type: datetime
+                      type: string
                     url:
                       type: string
                   example:
@@ -49,7 +49,7 @@ paths:
       description: Creates a new todo from provided data
       operationId: createTodo
       security:
-      - JWT: {}
+      - JWT: []
       parameters:
       - name: Authorization
         in: header
@@ -91,7 +91,7 @@ paths:
                   type: boolean
                   nullable: true
                 due_by:
-                  type: date
+                  type: string
                   nullable: true
               example:
                 task: Water plants
@@ -139,11 +139,11 @@ paths:
                   done:
                     type: boolean
                   due_by:
-                    type: date
+                    type: string
                   created_at:
-                    type: datetime
+                    type: string
                   updated_at:
-                    type: datetime
+                    type: string
                   url:
                     type: string
     put:
@@ -153,7 +153,7 @@ paths:
       description: Updates a specific todo by id
       operationId: updateTodo
       security:
-      - JWT: {}
+      - JWT: []
       parameters:
       - name: Authorization
         in: header
@@ -188,7 +188,7 @@ paths:
                 done:
                   type: boolean
                 due_by:
-                  type: date
+                  type: string
               example:
                 task: Water plants
                 done: false
@@ -200,7 +200,7 @@ paths:
       description: Updates a specific todo by id
       operationId: patchTodo
       security:
-      - JWT: {}
+      - JWT: []
       parameters:
       - name: Authorization
         in: header
@@ -233,7 +233,7 @@ paths:
                 done:
                   type: boolean
                 due_by:
-                  type: date
+                  type: string
               example:
                 done: true
     delete:
@@ -243,7 +243,7 @@ paths:
       description: Deletes a specific todo by id
       operationId: deleteTodo
       security:
-      - JWT: {}
+      - JWT: []
       parameters:
       - name: Authorization
         in: header
@@ -257,7 +257,7 @@ paths:
       responses:
         '204':
           description: success
-  "/api/v1/todos?done={done}":
+  "/api/v1/todos/{done}":
     get:
       summary: Lists completed or pending todos
       tags:
@@ -286,11 +286,11 @@ paths:
                     done:
                       type: boolean
                     due_by:
-                      type: date
+                      type: string
                     created_at:
-                      type: datetime
+                      type: string
                     updated_at:
-                      type: datetime
+                      type: string
                     url:
                       type: string
                   example:
@@ -306,9 +306,9 @@ servers:
   variables:
     defaultHost:
       default: open-api-swagger.herokuapp.com
-securityDefinitions:
-  JWT:
-    description: A jwt for API authorization
-    type: apiKey
-    name: Authorization
-    in: header
+components:
+  securitySchemes:
+    JWT:
+      type: apiKey
+      name: Authorization
+      in: header
