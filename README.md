@@ -4,7 +4,13 @@ API:
 https://open-api-swagger.herokuapp.com/api/v1/todos 
 
 OPEN API DOCS:
-https://open-api-swagger.herokuapp.com/api/v1/todos/api-docs
+https://open-api-swagger.herokuapp.com/api-docs/index.html
+
+This app was created using:
+```ruby
+rails new api --api --database=postgresql --skip-turbolinks --skip-action-text --skip-action-mailbox --skip-action-mailer --skip-action-cable --skip-javascript
+```
+
 
 ### Ruby & Rails version
   * 2.7.4
@@ -17,11 +23,18 @@ https://open-api-swagger.herokuapp.com/api/v1/todos/api-docs
   * jwt 
   * rack-cors
   * rack-reducer
+  * jbuilder
 ##### External services:
   * uses auth0 for authorization
 
+### Configuration
+- enable CORS config/initializers/cors.rb`
+- set default format as json in config/routes.rb
+- set Auth0 variables in `config/auth0.yml` & Auth0 initializer
+`
 ### Database creation
   * set up postgresql on your system
+  * gem pg
   * `rake db:create`
 
 ### Database initialization
@@ -34,7 +47,7 @@ https://open-api-swagger.herokuapp.com/api/v1/todos/api-docs
  Use `spec/generate_token.rb` to request an auth0 token to test the API.
 
  You can use the following in bash:
-```
+```bash
 export TOKEN=‘<received token>’
 
 curl --request GET   --url https://open-api-swagger.herokuapp.com/api/v1/todos   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'
