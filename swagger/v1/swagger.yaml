@@ -50,11 +50,6 @@ paths:
       operationId: createTodo
       security:
       - JWT: []
-      parameters:
-      - name: Authorization
-        in: header
-        schema:
-          type: string
       responses:
         '201':
           description: success
@@ -94,9 +89,10 @@ paths:
                   type: string
                   nullable: true
               example:
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
+                api_v1_todo:
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
               required:
               - task
               - done
@@ -155,10 +151,6 @@ paths:
       security:
       - JWT: []
       parameters:
-      - name: Authorization
-        in: header
-        schema:
-          type: string
       - name: id
         in: path
         required: true
@@ -190,9 +182,10 @@ paths:
                 due_by:
                   type: string
               example:
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
+                api_v1_todo:
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
     patch:
       summary: Updates a todo
       tags:
@@ -202,10 +195,6 @@ paths:
       security:
       - JWT: []
       parameters:
-      - name: Authorization
-        in: header
-        schema:
-          type: string
       - name: id
         in: path
         required: true
@@ -235,7 +224,8 @@ paths:
                 due_by:
                   type: string
               example:
-                done: true
+                api_v1_todo:
+                  done: true
     delete:
       summary: Deletes a todo
       tags:
@@ -245,10 +235,6 @@ paths:
       security:
       - JWT: []
       parameters:
-      - name: Authorization
-        in: header
-        schema:
-          type: string
       - name: id
         in: path
         required: true
@@ -257,50 +243,6 @@ paths:
       responses:
         '204':
           description: success
-  "/api/v1/todos/{done}":
-    get:
-      summary: Lists completed or pending todos
-      tags:
-      - Todo
-      description: Lists completed or pending todos
-      parameters:
-      - name: done
-        in: path
-        required: true
-        schema:
-          type: boolean
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    task:
-                      type: string
-                    done:
-                      type: boolean
-                    due_by:
-                      type: string
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    url:
-                      type: string
-                  example:
-                    id: 1
-                    task: Water plants
-                    done: true
-                    due_by: '2022-06-01'
-                    created_at: '2022-06-01'
-                    updated_at: '2022-06-01'
-                    url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
 servers:
 - url: https://{defaultHost}
   variables:

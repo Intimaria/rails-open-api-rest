@@ -38,8 +38,7 @@ RSpec.configure do |config|
       components: {
         securitySchemes: {
           JWT: {
-            description: 'A jwt for API authorization',
-            type: 'http',
+            type: :apiKey,
             name: 'Authorization',
             in: :header
           }
