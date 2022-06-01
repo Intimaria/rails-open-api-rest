@@ -90,7 +90,7 @@ path '/api/v1/todos' do
         let(:api_v1_todo) {  { api_v1_todo: { task: 'foo', done: nil, due_by: Date.today } } }
   
         response '201', 'success' do
-           let(:'Authorization') {"#{GenerateToken.test_token}"}
+           let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
             examples 'application/json' => {
                 task: 'Water plants',
                 done: false,
@@ -187,7 +187,7 @@ path '/api/v1/todos' do
             }
 
             response '200', 'success' do
-              let(:'Authorization') {"#{GenerateToken.test_token}"}
+              let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
                 examples 'application/json' => {
                     task: 'Water plants',
                     done: false,
@@ -198,7 +198,7 @@ path '/api/v1/todos' do
                 run_test!
             end
             response '422', 'invalid request' do
-              let(:'Authorization') {"#{GenerateToken.test_token}"}
+              let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
                 let(:api_v1_todo) {{ api_v1_todo: {  } } }
                 run_test! 
               end
@@ -231,7 +231,7 @@ path '/api/v1/todos' do
             }
 
             response '200', 'success' do
-              let(:'Authorization') {"#{GenerateToken.test_token}"}
+              let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
                 examples 'application/json' => {
                     done: false,
                 }
@@ -240,7 +240,7 @@ path '/api/v1/todos' do
                 run_test!
             end
             response '422', 'invalid request' do
-              let(:'Authorization') {"#{GenerateToken.test_token}"}
+              let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
                 let(:api_v1_todo) {{ api_v1_todo: {  } } }
                 run_test! 
               end
@@ -263,7 +263,7 @@ path '/api/v1/todos' do
             parameter name: :id, in: :path, type: :integer
 
             response '204', 'success' do
-                let(:'Authorization') {"#{GenerateToken.test_token}"}
+                let(:'Authorization') {"Bearer #{GenerateToken.test_token}"}
                 let(:id) { Api::V1::Todo.create(task: 'foo', done: false, due_by: Date.today + 8).id }
                 run_test!
             end

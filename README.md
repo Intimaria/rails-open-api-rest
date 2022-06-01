@@ -8,7 +8,9 @@ https://open-api-swagger.herokuapp.com/api-docs/index.html
 
 This app was created using:
 ```ruby
-rails new api --api --database=postgresql --skip-turbolinks --skip-action-text --skip-action-mailbox --skip-action-mailer --skip-action-cable --skip-javascript
+rails new api --api --database=postgresql \
+--skip-turbolinks --skip-action-text --skip-action-mailbox \
+--skip-action-mailer --skip-action-cable --skip-javascript
 ```
 
 
@@ -44,20 +46,42 @@ rails new api --api --database=postgresql --skip-turbolinks --skip-action-text -
 ### How to run the test suite
  Use `rake rswag:specs:swaggerize` to run open api tests.
 
- Use `spec/generate_token.rb` to request an auth0 token to test the API.
+ Use `spec/generate_token.rb` to request an auth0 token to test the API. Open a rails console:
+ ```bash
+ rails c
+ ```
+ Generate the token:
+```ruby
+require_relative 'spec/generate_token.rb'
+GenerateToken.test_token
+```
 
  You can use the following in bash:
 ```bash
 export TOKEN=‘<received token>’
 
-curl --request GET   --url https://open-api-swagger.herokuapp.com/api/v1/todos   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'
+curl --request GET  \
+--url https://open-api-swagger.herokuapp.com/api/v1/todos \
+--header "authorization: Bearer $TOKEN" \
+--header 'content-type: application/json'
 
-curl --request GET   --url https://open-api-swagger.herokuapp.com/api/v1/todos/5   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'
+curl --request GET  \
+--url https://open-api-swagger.herokuapp.com/api/v1/todos/5 \
+--header "authorization: Bearer $TOKEN" \ 
+--header 'content-type: application/json'
 
 
-curl --request POST  --url https://open-api-swagger.herokuapp.com/api/v1/todos   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'  --data '{ "api_v1_todo": { "task": "terminar dibujo" } }'
+curl --request POST \ 
+--url https://open-api-swagger.herokuapp.com/api/v1/todos   \
+--header "authorization: Bearer $TOKEN"   \
+--header 'content-type: application/json'  \
+--data '{ "api_v1_todo": { "task": "terminar dibujo" } }'
 
-curl   --request   PUT   --url https://open-api-swagger.herokuapp.com/api/v1/todos/5   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'  --data '{ api_v1_todo": { "task": "hacer mate" } }'
+curl   --request   PUT   \
+--url https://open-api-swagger.herokuapp.com/api/v1/todos/5   \
+--header "authorization: Bearer $TOKEN"   \
+--header 'content-type: application/json'  \
+--data '{ api_v1_todo": { "task": "hacer mate" } }'
 ```
 
 ### Deployment instructions
