@@ -55,7 +55,7 @@ curl --request GET   --url https://open-api-swagger.herokuapp.com/api/v1/todos  
 curl --request GET   --url https://open-api-swagger.herokuapp.com/api/v1/todos/5   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'
 
 
-curl --request POST  --url https://open-api-swagger.herokuapp.com/api/v1/todos   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'  --data '{ "api_v1_todo": { "task": "terminar dibujo" } }
+curl --request POST  --url https://open-api-swagger.herokuapp.com/api/v1/todos   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'  --data '{ "api_v1_todo": { "task": "terminar dibujo" } }'
 
 curl   --request   PUT   --url https://open-api-swagger.herokuapp.com/api/v1/todos/5   --header "authorization: Bearer $TOKEN"   --header 'content-type: application/json'  --data '{ api_v1_todo": { "task": "hacer mate" } }'
 ```
