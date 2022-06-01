@@ -10,6 +10,12 @@ paths:
       tags:
       - Todo
       description: Lists todo
+      parameters:
+      - name: done
+        in: query
+        required: false
+        schema:
+          type: boolean
       responses:
         '200':
           description: success
@@ -50,15 +56,17 @@ paths:
       operationId: createTodo
       security:
       - JWT: []
+      parameters: []
       responses:
         '201':
           description: success
           content:
             application/json:
               example:
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
+                api_v1_todo:
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
         '422':
           description: invalid request
           content:
@@ -71,9 +79,10 @@ paths:
           content:
             application/json:
               example:
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
+                api_v1_todo:
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
       requestBody:
         content:
           application/json:
@@ -118,13 +127,14 @@ paths:
           content:
             application/json:
               example:
-                id: 1
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
-                created_at: '2022-06-01'
-                updated_at: '2022-06-01'
-                url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
+                api_v1_todo:
+                  id: 1
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
+                  created_at: '2022-06-01'
+                  updated_at: '2022-06-01'
+                  url: https://open-api-swagger.herokuapp.com/api/v1/todos/1.json
               schema:
                 type: object
                 properties:
@@ -162,9 +172,10 @@ paths:
           content:
             application/json:
               example:
-                task: Water plants
-                done: false
-                due_by: '2022-06-01'
+                api_v1_todo:
+                  task: Water plants
+                  done: false
+                  due_by: '2022-06-01'
         '422':
           description: invalid request
         '401':
@@ -244,7 +255,7 @@ paths:
         '204':
           description: success
 servers:
-- url: https://{defaultHost}
+- url: https://open-api-swagger.herokuapp.com
   variables:
     defaultHost:
       default: open-api-swagger.herokuapp.com

@@ -8,6 +8,7 @@ RSpec.describe '../integration/api/v1/todos', type: :request do
             tags 'Todo'
             description 'Lists todos'
             produces 'application/json'
+            parameter name: :done, in: :query, required: false, type: :boolean
             response '200', 'success' do
               schema type: :array,
                items: {
@@ -16,9 +17,9 @@ RSpec.describe '../integration/api/v1/todos', type: :request do
                     id: { type: :integer },
                     task: { type: :string },
                     done: { type: :boolean},
-                    due_by: { type: :date},
-                    created_at: { type: :datetime},
-                    updated_at: { type: :datetime},
+                    due_by: { type: :string},
+                    created_at: { type: :string},
+                    updated_at: { type: :string},
                     url: { type: :string }
                  }, example: {
                     id: 1,
@@ -47,9 +48,9 @@ path '/api/v1/todos' do
                 id: { type: :integer },
                 task: { type: :string },
                 done: { type: :boolean},
-                due_by: { type: :date},
-                created_at: { type: :datetime},
-                updated_at: { type: :datetime},
+                due_by: { type: :string},
+                created_at: { type: :string},
+                updated_at: { type: :string},
                 url: { type: :string }
              }, example: {
                 id: 1,
@@ -72,13 +73,12 @@ path '/api/v1/todos' do
         consumes 'application/json'
         produces 'application/json'
         security [JWT: []]
-        parameter name: 'Authorization', in: :header, type: :string
         parameter name: :api_v1_todo, in: :body, schema: {
             type: :object,
             properties: {
                 task: { type: :string },
                 done: { type: :boolean, nullable: true},
-                due_by: { type: :date, nullable: true},
+                due_by: { type: :string, nullable: true},
              }, example: {
                api_v1_todo: {
                 task: 'Water plants',
@@ -142,9 +142,9 @@ path '/api/v1/todos' do
                    id: { type: :integer },
                    task: { type: :string },
                    done: { type: :boolean},
-                   due_by: { type: :date},
-                   created_at: { type: :datetime},
-                   updated_at: { type: :datetime},
+                   due_by: { type: :string},
+                   created_at: { type: :string},
+                   updated_at: { type: :string},
                    url: { type: :string }
                  }
                  examples 'application/json' => {
@@ -177,14 +177,13 @@ path '/api/v1/todos' do
             consumes 'application/json'
             produces 'application/json'
             security [JWT: []]
-            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
             parameter name: :api_v1_todo, in: :body, schema: {
                 type: :object,
                 properties: {
                     task: { type: :string },
                     done: { type: :boolean},
-                    due_by: { type: :date},
+                    due_by: { type: :string},
                  }, example: {
                    api_v1_todo:{
                     task: 'Water plants',
@@ -225,16 +224,17 @@ path '/api/v1/todos' do
             consumes 'application/json'
             produces 'application/json'
             security [JWT: []]
-            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
             parameter name: :api_v1_todo, in: :body, schema: {
                 type: :object,
                 properties: {
                     task: { type: :string },
                     done: { type: :boolean},
-                    due_by: { type: :date},
+                    due_by: { type: :string},
                  }, example: {
+                  api_v1_todo:{
                     done: true,
+                  }
                 }
             }
 
@@ -267,7 +267,6 @@ path '/api/v1/todos' do
             operationId 'deleteTodo'
             produces 'application/json'
             security [JWT: []]
-            parameter name: 'Authorization', in: :header, type: :string
             parameter name: :id, in: :path, type: :integer
 
             response '204', 'success' do
@@ -277,40 +276,6 @@ path '/api/v1/todos' do
             end
           end 
      end
-
-     path '/api/v1/todos?done={done}' do
-        get 'Lists completed or pending todos' do
-            tags 'Todo'
-            description 'Lists completed or pending todos'
-            produces 'application/json'
-            parameter name: :done, in: :path, type: :boolean
-            response '200', 'success' do
-              schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                    id: { type: :integer },
-                    task: { type: :string },
-                    done: { type: :boolean},
-                    due_by: { type: :date},
-                    created_at: { type: :datetime},
-                    updated_at: { type: :datetime},
-                    url: { type: :string }
-                 }, example: {
-                   api_v1_todo: {
-                    id: 1,
-                    task: 'Water plants',
-                    done: true,
-                    due_by: Date.today,
-                    created_at: Date.today,
-                    updated_at: Date.today,
-                    url: "https://open-api-swagger.herokuapp.com/api/v1/todos/1.json"
-                }}
-               }
-               run_test!
-            end
-          end
-        end
   end
 
 
