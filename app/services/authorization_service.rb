@@ -13,9 +13,9 @@ class AuthorizationService
   def http_token
     @headers['Authorization'].split(' ').last if @headers['Authorization'].present?
   end
-
+  
   def verify_token
-    JsonWebToken.verify(http_token)
+    JsonWebToken.verify(http_token) 
   end
 
 end

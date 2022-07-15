@@ -12,7 +12,7 @@ class JsonWebToken
                  aud:"#{audience}",
                  verify_aud: true) do |header|
         key(header)
-      end
+      end.first
     end
     
     def algorithm

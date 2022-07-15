@@ -8,22 +8,26 @@
 Api::V1::Todo.destroy_all
 
 todos = Api::V1::Todo.create([{
-    task: 'comprar seven up',
+    task: 'comprar pan',
     done: false,
     due_by: Date.today,
+    owner: "google-oauth2|111035368809348208211"
 },
 {
-    task: 'devolver tuper',
+    task: 'ir a la facultad',
     done: false,
     due_by: Date.today + 7,
+    owner: "google-oauth2|111035368809348208211"
 },
 {
-    task: 'pagar alquiler',
+    task: 'pagar expensas',
     done: false,
     due_by: Date.today + 2,
+    owner: "google-oauth2|111035368809348208211"
 },
 {
-    task: 'hacer tarea',
+    task: 'hacer curso de trabajo',
     done: true,
     due_by: Date.today - 2,
+    owner: "google-oauth2|111035368809348208211"
 }])

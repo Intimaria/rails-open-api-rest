@@ -1,7 +1,8 @@
 class Api::V1::TodosController < ApplicationController
   include Secured 
 
-  skip_before_action :authenticate_request!, only: [:index, :show ]
+  # skip_before_action :authenticate_request!, only: [:show ]
+  before_action :set_owner
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
   TodoReducer = Rack::Reducer.new(
@@ -11,9 +12,8 @@ class Api::V1::TodosController < ApplicationController
 
   # GET /api/v1/todos.json
   def index
-    logger.info request.env
-
-    @api_v1_todos = TodoReducer.apply(params)
+  
+    @api_v1_todos = TodoReducer.apply(params).where(owner: @owner)
   end
 
   # GET /api/v1/todos/1.json
@@ -22,7 +22,7 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /api/v1/todos.json
   def create
-    @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params)
+    @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params, owner: @owner)
 
     if @api_v1_todo.save
       render :show, status: :created, location: @api_v1_todo
@@ -46,10 +46,15 @@ class Api::V1::TodosController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_api_v1_todo
-      @api_v1_todo = Api::V1::Todo.find(params[:id])
+      @api_v1_todo = Api::V1::Todo.find(params[:id]).where(owner: @owner)
     end
+
+    def set_owner 
+      @owner = @token[:sub]
+    end 
 
     # Only allow a list of trusted parameters through.
     def api_v1_todo_params
