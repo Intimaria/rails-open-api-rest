@@ -21,7 +21,7 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /api/v1/todos.json
   def create
-    @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params)
+    @api_v1_todo = Api::V1::Todo.new(default_values.merge(api_v1_todo_params))
 
     if @api_v1_todo.save
       render :show, status: :created, location: @api_v1_todo
@@ -54,6 +54,11 @@ class Api::V1::TodosController < ApplicationController
       @owner = @token[:sub]
     end 
 
+    def default_values
+      {
+        owner: @owner
+      }
+    end
     # Only allow a list of trusted parameters through.
     def api_v1_todo_params
       params.require(:api_v1_todo).permit(:task, :done, :due_by)
