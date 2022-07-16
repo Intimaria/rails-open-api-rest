@@ -12,7 +12,6 @@ class Api::V1::TodosController < ApplicationController
 
   # GET /api/v1/todos.json
   def index
-  
     @api_v1_todos = TodoReducer.apply(params).where(owner: @owner)
   end
 
@@ -22,7 +21,7 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /api/v1/todos.json
   def create
-    @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params, owner: @owner)
+    @api_v1_todo = Api::V1::Todo.new(api_v1_todo_params)
 
     if @api_v1_todo.save
       render :show, status: :created, location: @api_v1_todo
@@ -46,10 +45,9 @@ class Api::V1::TodosController < ApplicationController
   end
 
   private
-
     # Use callbacks to share common setup or constraints between actions.
     def set_api_v1_todo
-      @api_v1_todo = Api::V1::Todo.find(params[:id]).where(owner: @owner)
+      @api_v1_todo = Api::V1::Todo.find_by(id: params[:id], owner: @owner)
     end
 
     def set_owner 
