@@ -1,7 +1,8 @@
 class Api::V1::TodosController < ApplicationController
   include Secured
 
-  before_action :authenticate_request!
+
+  # before_action :authenticate_request!
   before_action :set_owner
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 
@@ -41,7 +42,11 @@ class Api::V1::TodosController < ApplicationController
 
   # DELETE /api/v1/todos/1.json
   def destroy
-    @api_v1_todo.destroy
+    if @api_v1_todo.nil?
+      render json: { message: 'Task not found' }, status: :not_found
+    elsif @api_v1_todo.destroy
+      render :show, status: :ok, location: @api_v1_todo
+    end 
   end
 
   private

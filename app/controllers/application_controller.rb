@@ -2,10 +2,10 @@
 
 class ApplicationController < ActionController::API
     respond_to? :json
-
+    include ExceptionHandler
+    include Secured
     # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     # rescue_from ActionController::ParameterMissing, with: :parameter_missing
-
     private
 
     #errors 

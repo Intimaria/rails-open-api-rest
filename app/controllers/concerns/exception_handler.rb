@@ -7,7 +7,7 @@ module ExceptionHandler
     class InvalidToken < StandardError; end
     class ExpiredSignature < StandardError; end
     class DecodeError < StandardError; end
-    
+
     included do
       # Define custom handlers
       rescue_from ActiveRecord::RecordInvalid, with: :four_twenty_two
@@ -42,8 +42,7 @@ module ExceptionHandler
      def four_zero_one(e)
        render json: { message: e.message }, status: :invalid_token
      end
-  
-     
+
     # JSON response with message; Status code 401 - Unauthorized
     def unauthorized_request(e)
       render json: { message: e.message }, status: :unauthorized
