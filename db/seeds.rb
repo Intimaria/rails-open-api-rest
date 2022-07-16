@@ -23,11 +23,11 @@ todos = Api::V1::Todo.create([{
     task: 'pagar expensas',
     done: false,
     due_by: Date.today + 2,
-    owner: "google-oauth2|111035368809348208211"
+    owner: "ggoogle-oauth2|109020883778282245656"
 },
 {
     task: 'hacer curso de trabajo',
     done: true,
     due_by: Date.today - 2,
-    owner: "google-oauth2|111035368809348208211"
+    owner: "google-oauth2|109020883778282245656"
 }])
