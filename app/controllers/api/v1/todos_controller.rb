@@ -21,7 +21,6 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /api/v1/todos.json
   def create
-    Rails.logger.warn 
     @api_v1_todo = Api::V1::Todo.new(default_values.merge(api_v1_todo_params))
 
     if @api_v1_todo.save
