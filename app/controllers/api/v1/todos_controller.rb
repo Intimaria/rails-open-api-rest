@@ -1,7 +1,7 @@
 class Api::V1::TodosController < ApplicationController
-  include Secured 
+  include Secured
 
-  # skip_before_action :authenticate_request!, only: [:show ]
+  before_action :authenticate_request!
   before_action :set_owner
   before_action :set_api_v1_todo, only: %i[ show update destroy ]
 

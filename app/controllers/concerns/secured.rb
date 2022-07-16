@@ -1,10 +1,10 @@
 module Secured
     extend ActiveSupport::Concern
-    @token 
+    @token
 
-    included do
-      before_action :authenticate_request!
-    end
+    # included do
+    #   before_action :authenticate_request!
+    # end
   
     private
   
